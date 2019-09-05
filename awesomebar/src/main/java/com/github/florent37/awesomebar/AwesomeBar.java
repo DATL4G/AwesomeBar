@@ -7,15 +7,9 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.Nullable;
-import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v7.widget.ActionMenuView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -23,8 +17,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.ActionMenuView;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.LinearLayoutCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat;
 
 /**
  * Created by florentchampigny on 29/01/2017.
@@ -44,10 +45,10 @@ public class AwesomeBar extends FrameLayout {
     private Paint paintMain;
     private Settings settings;
 
-    private ImageView iconMenu;
-    private ImageView iconBack;
-    private ImageView iconApp;
-    private ImageView iconAppBackground;
+    private AppCompatImageView iconMenu;
+    private AppCompatImageView iconBack;
+    private AppCompatImageView iconApp;
+    private AppCompatImageView iconAppBackground;
     private ViewGroup actionsLayout;
 
     private ActionMenuView actionMenuView;
@@ -83,10 +84,10 @@ public class AwesomeBar extends FrameLayout {
 
         addView(LayoutInflater.from(context).inflate(R.layout.bar_layout, this, false));
 
-        iconMenu = (ImageView) findViewById(R.id.bar_menu_icon);
-        iconBack = (ImageView) findViewById(R.id.bar_back_icon);
-        iconApp = (ImageView) findViewById(R.id.bar_app_icon);
-        iconAppBackground = (ImageView) findViewById(R.id.bar_app_icon_background);
+        iconMenu = findViewById(R.id.bar_menu_icon);
+        iconBack = findViewById(R.id.bar_back_icon);
+        iconApp = findViewById(R.id.bar_app_icon);
+        iconAppBackground = findViewById(R.id.bar_app_icon_background);
         actionsLayout = (ViewGroup) findViewById(R.id.bar_actions_layout);
         actionMenuView = (ActionMenuView) findViewById(R.id.bar_actions_menu_view);
 
@@ -216,7 +217,7 @@ public class AwesomeBar extends FrameLayout {
         canvas.drawCircle(-radius * RATIO_RADIUS_MIN_MAX + animRadius, cY, radius, paintDark);
     }
 
-    public Drawable getAppIcon(Context context) {
+    public Drawable getAppIcon(@NonNull Context context) {
         return context.getPackageManager().getApplicationIcon(context.getApplicationInfo());
     }
 
@@ -237,7 +238,7 @@ public class AwesomeBar extends FrameLayout {
             }
         });
 
-        final LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) actionItem.getLayoutParams();
+        final LinearLayoutCompat.LayoutParams layoutParams = (LinearLayoutCompat.LayoutParams) actionItem.getLayoutParams();
         layoutParams.leftMargin = getResources().getDimensionPixelOffset(R.dimen.bar_actions_margin_left);
         layoutParams.rightMargin = getResources().getDimensionPixelOffset(R.dimen.bar_actions_margin_right);
         actionItem.setLayoutParams(layoutParams);

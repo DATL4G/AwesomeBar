@@ -1,10 +1,11 @@
 package com.github.florent37.awesomebar;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+
+import androidx.annotation.NonNull;
 
 /**
  * Created by florentchampigny on 30/01/2017.
@@ -33,7 +34,7 @@ public class Settings {
         }
     }
 
-    private int fetchPrimaryColor(Context context) {
+    private int fetchPrimaryColor(@NonNull Context context) {
         final TypedValue typedValue = new TypedValue();
 
         final TypedArray a = context.obtainStyledAttributes(typedValue.data, new int[] { R.attr.colorPrimary });
@@ -44,7 +45,7 @@ public class Settings {
         return color;
     }
 
-    private int fetchPrimaryDarkColor(Context context) {
+    private int fetchPrimaryDarkColor(@NonNull Context context) {
         final TypedValue typedValue = new TypedValue();
 
         final TypedArray a = context.obtainStyledAttributes(typedValue.data, new int[] { R.attr.colorPrimaryDark });
@@ -87,7 +88,7 @@ public class Settings {
         this.actionsColor = actionsColor;
     }
 
-    public float dpToPx(Context context, float dp){
+    public float dpToPx(@NonNull Context context, float dp){
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
     }
 }

@@ -5,14 +5,17 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.Nullable;
-import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
+
+import androidx.annotation.DrawableRes;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat;
 
 import com.github.florent37.awesomebar.shape.RoundRect;
 
@@ -28,8 +31,8 @@ public class ActionItem extends LinearLayout {
     private int backgroundColor = Color.RED;
     private boolean animateBeforeClick = true;
 
-    private final ImageView icon;
-    private final TextView text;
+    private final AppCompatImageView icon;
+    private final AppCompatTextView text;
 
     public ActionItem(Context context) {
         this(context, null);
@@ -45,10 +48,11 @@ public class ActionItem extends LinearLayout {
         inflate(context, R.layout.bar_action_item, this);
         setWillNotDraw(false);
 
-        icon = (ImageView) findViewById(R.id.action_icon);
-        text = (TextView) findViewById(R.id.action_text);
+        icon = findViewById(R.id.action_icon);
+        text = findViewById(R.id.action_text);
 
         setOnClickListener(new OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(final View v) {
                 if(animateBeforeClick) {
@@ -76,13 +80,18 @@ public class ActionItem extends LinearLayout {
         });
     }
 
+
     private boolean tryToAnimate(){
             final Drawable drawable = icon.getDrawable();
-            if (drawable instanceof AnimatedVectorDrawable) {
-                final AnimatedVectorDrawable d = (AnimatedVectorDrawable) drawable;
-                d.start();
-                return true;
-            } else if (drawable instanceof AnimatedVectorDrawableCompat) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                if (drawable instanceof AnimatedVectorDrawable) {
+                    final AnimatedVectorDrawable d = (AnimatedVectorDrawable) drawable;
+                    d.start();
+                    return true;
+                }
+            }
+
+            if (drawable instanceof AnimatedVectorDrawableCompat) {
                 final AnimatedVectorDrawableCompat d = (AnimatedVectorDrawableCompat) drawable;
                 d.start();
                 return true;

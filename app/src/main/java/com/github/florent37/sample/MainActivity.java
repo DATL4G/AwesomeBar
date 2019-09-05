@@ -1,31 +1,27 @@
 package com.github.florent37.sample;
 
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.github.florent37.awesomebar.ActionItem;
 import com.github.florent37.awesomebar.AwesomeBar;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-
 public class MainActivity extends AppCompatActivity {
-
-    @Bind(R.id.bar)
-    AwesomeBar bar;
-
-    @Bind(R.id.drawer_layout)
-    DrawerLayout drawerLayout;
+    private AwesomeBar bar;
+    private DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+
+        bar = findViewById(R.id.bar);
+        drawerLayout = findViewById(R.id.drawer_layout);
 
         bar.addAction(R.drawable.awsb_ic_edit_animated, "Compose");
 
@@ -52,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         bar.setOnMenuClickedListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                drawerLayout.openDrawer(Gravity.START);
+                drawerLayout.openDrawer(GravityCompat.START);
             }
         });
 

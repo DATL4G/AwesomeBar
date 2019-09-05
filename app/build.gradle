@@ -1,29 +1,30 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion project.sdk
-    buildToolsVersion project.buildTools
+    compileSdkVersion 29
 
     defaultConfig {
-        minSdkVersion project.minSdk
-        targetSdkVersion project.sdk
+        minSdkVersion 14
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         vectorDrawables.useSupportLibrary = true
 
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:'+project.supportVersion
-    testCompile 'junit:junit:4.12'
+    implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
+    testImplementation 'junit:junit:4.12'
 
-    compile project(":awesomebar")
-
-    compile 'com.jakewharton:butterknife:7.0.0'
+    implementation project(":awesomebar")
 
 }

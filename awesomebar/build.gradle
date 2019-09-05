@@ -1,14 +1,14 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion project.sdk
-    buildToolsVersion project.buildTools
+    compileSdkVersion 29
 
     defaultConfig {
-        minSdkVersion project.minSdk
-        targetSdkVersion project.sdk
+        minSdkVersion 14
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
+        vectorDrawables.useSupportLibrary = true
 
     }
     buildTypes {
@@ -20,8 +20,8 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:' + project.supportVersion
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
 }
 
 
@@ -39,7 +39,7 @@ ext {
     siteUrl = 'https://github.com/florent37/AwesomeBar'
     gitUrl = 'https://github.com/florent37/AwesomeBar.git'
 
-    libraryVersion = rootProject.ext.libraryVersion
+    libraryVersion = "1.0.4"
 
     developerId = 'florent37'
     developerName = 'Florent Champigny'

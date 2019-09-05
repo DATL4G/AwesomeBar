@@ -9,6 +9,8 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 
+import androidx.annotation.NonNull;
+
 public class RoundRect extends Shape {
 
     public static final int BORDER_PADDING = 30;
@@ -23,7 +25,7 @@ public class RoundRect extends Shape {
         this.height = height;
     }
 
-    private static void drawRoundedRect(Canvas canvas, float left, float top, float right, float bottom, Paint paint) {
+    private static void drawRoundedRect(@NonNull Canvas canvas, float left, float top, float right, float bottom, Paint paint) {
         float radius = (bottom - top) / 2;
 
         RectF rectF = new RectF(left, top, right, bottom);
